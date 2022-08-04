@@ -1,12 +1,14 @@
-const Workout = require("../db/json/workout-json");
+const workout = require("../db/json/workout-json");
 const { v4: uuid } = require("uuid");
 
 const getAllWorkouts = () => {
-  const allWorkouts = Workout.getAllWorkouts();
+  const allWorkouts = workout.getAllWorkouts();
   return allWorkouts;
 };
-getOneWorkout = () => {
-  return;
+
+getOneWorkout = (workoutId) => {
+  const oneWorkout = workout.getOneWorkout(workoutId);
+  return oneWorkout;
 };
 createNewWorkout = (newWorkout) => {
   const workoutToInsert = {
@@ -15,7 +17,8 @@ createNewWorkout = (newWorkout) => {
     createdAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
     updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
   };
-  const createdNewWorkout = Workout.createdNewWorkout(workoutToInsert);
+
+  const createdNewWorkout = workout.createdNewWorkout(workoutToInsert);
   return createdNewWorkout;
 };
 upadteOneWorkout = () => {

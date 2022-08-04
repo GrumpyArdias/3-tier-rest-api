@@ -6,8 +6,17 @@ const getAllWorkouts = (req, res) => {
 };
 
 const getOneWorkout = (req, res) => {
-  const workout = workoutService.getOneWorkout();
-  res.send(`Get workout ${req.params.workoutId}`);
+  const {
+    params: { workoutId },
+  } = req;
+  console.log(`Este es el Workout ID ${workoutId}`);
+  if (!workoutId) {
+    console.log(workoutId);
+    return;
+  }
+  const workout = workoutService.getOneWorkout(workoutId);
+  console.log(`Este es el workout de controller ${workout}`);
+  res.send({ status: "OK", data: workout });
 };
 
 const createNewWorkout = (req, res) => {

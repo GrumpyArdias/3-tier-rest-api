@@ -24,4 +24,20 @@ const createdNewWorkout = (newWorkout) => {
   saveToDatabase(DB);
   return newWorkout;
 };
-module.exports = { getAllWorkouts, createdNewWorkout, getOneWorkout };
+
+const updateOneWorkout = (updatedWorkout) => {
+  for (let i = 0; i <= DB.workouts.length; i++) {
+    if (DB.workouts[i].id === updatedWorkout.id) {
+      DB.workouts[i] = updatedWorkout;
+      saveToDatabase(DB);
+      return "esta cambiado";
+    }
+  }
+  return;
+};
+module.exports = {
+  getAllWorkouts,
+  createdNewWorkout,
+  getOneWorkout,
+  updateOneWorkout,
+};

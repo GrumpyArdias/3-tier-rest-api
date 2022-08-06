@@ -44,10 +44,15 @@ const createNewWorkout = (req, res) => {
 };
 
 const updateOneWorkout = (req, res) => {
-  const upadated = workoutService.upadteOneWorkout();
-  res.send(`Upadte workout ${req.params.workoutId}`);
+  console.log(req.body, req.params.workoutId);
+  const updateWorkoutId = req.params.workoutId;
+  const updateWorkout = req.body;
 
-  //Buscar ID del que quiero modificar y se reemplaza
+  const updated = workoutService.updateOneWorkout(
+    updateWorkoutId,
+    updateWorkout
+  );
+  res.status(201).send({ status: "OK", data: updated });
 };
 
 const deleteOneWorkout = (req, res) => {

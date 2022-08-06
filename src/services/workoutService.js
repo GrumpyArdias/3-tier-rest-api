@@ -6,11 +6,11 @@ const getAllWorkouts = () => {
   return allWorkouts;
 };
 
-getOneWorkout = (workoutId) => {
+const getOneWorkout = (workoutId) => {
   const oneWorkout = workout.getOneWorkout(workoutId);
   return oneWorkout;
 };
-createNewWorkout = (newWorkout) => {
+const createNewWorkout = (newWorkout) => {
   const workoutToInsert = {
     ...newWorkout,
     id: uuid(),
@@ -21,8 +21,17 @@ createNewWorkout = (newWorkout) => {
   const createdNewWorkout = workout.createdNewWorkout(workoutToInsert);
   return createdNewWorkout;
 };
-upadteOneWorkout = () => {
-  return;
+const updateOneWorkout = (workoutId, workoutBody) => {
+  const getingWorkout = workout.getOneWorkout(workoutId);
+
+  if (!getingWorkout) return;
+
+  const updatedWorkout = {
+    ...getingWorkout,
+    ...workoutBody,
+    updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+  };
+  return workout.updateOneWorkout(updatedWorkout);
 };
 deleteOneWorkout = () => {
   return;
@@ -32,6 +41,6 @@ module.exports = {
   getAllWorkouts,
   getOneWorkout,
   createNewWorkout,
-  upadteOneWorkout,
+  updateOneWorkout,
   deleteOneWorkout,
 };

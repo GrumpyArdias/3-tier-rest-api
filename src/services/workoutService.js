@@ -33,8 +33,10 @@ const updateOneWorkout = (workoutId, workoutBody) => {
   };
   return workout.updateOneWorkout(updatedWorkout);
 };
-deleteOneWorkout = () => {
-  return;
+deleteOneWorkout = (workoutId) => {
+  const deletedWorkout = workout.deletedWorkout(workoutId);
+
+  return deletedWorkout;
 };
 
 module.exports = {

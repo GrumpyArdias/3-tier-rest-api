@@ -26,7 +26,7 @@ const createdNewWorkout = (newWorkout) => {
 };
 
 const updateOneWorkout = (updatedWorkout) => {
-  for (let i = 0; i <= DB.workouts.length; i++) {
+  for (let i = 0; i < DB.workouts.length; i++) {
     if (DB.workouts[i].id === updatedWorkout.id) {
       DB.workouts[i] = updatedWorkout;
       saveToDatabase(DB);
@@ -35,9 +35,19 @@ const updateOneWorkout = (updatedWorkout) => {
   }
   return;
 };
+const deletedWorkout = (workoutId) => {
+  for (let i = 0; i < DB.workouts.length; i++) {
+    if (DB.workouts[i].id === workoutId) {
+      DB.workouts.splice(i, 1);
+      saveToDatabase(DB);
+    } else return;
+  }
+  return;
+};
 module.exports = {
   getAllWorkouts,
   createdNewWorkout,
   getOneWorkout,
   updateOneWorkout,
+  deletedWorkout,
 };

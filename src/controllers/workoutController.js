@@ -56,10 +56,13 @@ const updateOneWorkout = (req, res) => {
 };
 
 const deleteOneWorkout = (req, res) => {
-  workoutService.deleteOneWorkout();
-  res.send(`Create workout ${req.params.workoutId}`);
-
-  // Reescribir el JSON elminando el ID necesario
+  const deleteWorkoutId = req.params.workoutId;
+  const deleteWorkout = workoutService.deleteOneWorkout(deleteWorkoutId);
+  if (!deleteWorkout) {
+    res.status(404).send({ status: "Not Found", data: deleteWorkout });
+  } else {
+    res.status(201).send({ status: "OK", data: deleteWorkout });
+  }
 };
 
 module.exports = {

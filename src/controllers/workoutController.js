@@ -1,7 +1,7 @@
 const workoutService = require("../services/workoutService");
 
-const getAllWorkouts = (req, res) => {
-  const allWorkouts = workoutService.getAllWorkouts();
+const getAllWorkouts = async (req, res) => {
+  const allWorkouts = await workoutService.getAllWorkouts();
   res.send({ status: "OK", data: allWorkouts });
 };
 
@@ -19,7 +19,7 @@ const getOneWorkout = (req, res) => {
   res.send({ status: "OK", data: workout });
 };
 
-const createNewWorkout = (req, res) => {
+const createNewWorkout = async (req, res) => {
   const { body } = req;
   if (
     !body.name ||
@@ -38,17 +38,17 @@ const createNewWorkout = (req, res) => {
     trainerTips: body.trainerTips,
   };
 
-  const createdWorkout = workoutService.createNewWorkout(newWorkout);
+  const createdWorkout = await workoutService.createNewWorkout(newWorkout);
   res.status(201).send({ status: "OK", data: createdWorkout });
   console.log(`---> ${createdWorkout}`);
 };
 
-const updateOneWorkout = (req, res) => {
+const updateOneWorkout = async (req, res) => {
   console.log(req.body, req.params.workoutId);
   const updateWorkoutId = req.params.workoutId;
   const updateWorkout = req.body;
 
-  const updated = workoutService.updateOneWorkout(
+  const updated = await workoutService.updateOneWorkout(
     updateWorkoutId,
     updateWorkout
   );

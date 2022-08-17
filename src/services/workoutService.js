@@ -1,40 +1,40 @@
-const workout = require("../db/json/workout-json");
+const workoutSql = require("../db/sql/workout-sql");
 const { v4: uuid } = require("uuid");
 
-const getAllWorkouts = () => {
-  const allWorkouts = workout.getAllWorkouts();
+const getAllWorkouts = async () => {
+  const allWorkouts = await workoutSql.getAllWorkouts();
   return allWorkouts;
 };
 
 const getOneWorkout = (workoutId) => {
-  const oneWorkout = workout.getOneWorkout(workoutId);
+  const oneWorkout = workoutJson.getOneWorkout(workoutId);
   return oneWorkout;
 };
-const createNewWorkout = (newWorkout) => {
+const createNewWorkout = async (newWorkout) => {
   const workoutToInsert = {
     ...newWorkout,
-    id: uuid(),
-    createdAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
-    updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+    equipment: JSON.stringify(newWorkout.equipment),
+    exercises: JSON.stringify(newWorkout.exercises),
+    trainerTips: JSON.stringify(newWorkout.trainerTips),
   };
 
-  const createdNewWorkout = workout.createdNewWorkout(workoutToInsert);
+  const createdNewWorkout = await workoutSql.createNewWorkout(workoutToInsert);
   return createdNewWorkout;
 };
-const updateOneWorkout = (workoutId, workoutBody) => {
-  const getingWorkout = workout.getOneWorkout(workoutId);
 
-  if (!getingWorkout) return;
-
-  const updatedWorkout = {
-    ...getingWorkout,
+const updateOneWorkout = async (workoutId, workoutBody) => {
+  const workoutToUpdate = {
     ...workoutBody,
-    updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+    equipment: JSON.stringify(workoutBody.equipment),
+    exercises: JSON.stringify(workoutBody.exercises),
+    trainerTips: JSON.stringify(workoutBody.trainerTips),
   };
-  return workout.updateOneWorkout(updatedWorkout);
+
+  return await workoutSql.updateOneWorkout(workoutId, workoutToUpdate);
 };
+
 deleteOneWorkout = (workoutId) => {
-  const deletedWorkout = workout.deletedWorkout(workoutId);
+  const deletedWorkout = workoutSql.deletedWorkout(workoutId);
 
   return deletedWorkout;
 };
